@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"cloud-disk/app/common"
+	"cloud-disk/internal/auth"
 	"cloud-disk/internal/config"
 	"cloud-disk/internal/log"
 	"cloud-disk/internal/mysql"
@@ -47,6 +48,7 @@ func initialize() error {
 	}
 
 	log.InitLog(&config.AppCfg.LogCfg)
+	auth.InitAuth()
 
 	//err = mysql.InitMySQL()
 	//if err != nil {

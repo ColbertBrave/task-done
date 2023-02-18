@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"cloud-disk/internal/config"
 	"errors"
 	"io"
 	"net/http"
@@ -9,6 +10,10 @@ import (
 )
 
 var Auth HmacAuthenticator
+
+func InitAuth() {
+	Auth.SecretKey = []byte(config.AppCfg.AuthCfg.SecretKey)
+}
 
 func VerifyRequest(authenticator Authenticator, request *http.Request) error {
 	sign, isOk := request.Header["Authorization"]
