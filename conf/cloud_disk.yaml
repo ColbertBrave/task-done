@@ -25,5 +25,4 @@ time:
   query_time: "0 1 * * *"
 
 auth:
-  access_key: learngolang
   secret_key: thisisasecretkey

@@ -39,6 +39,5 @@ type ScheduledTaskTime struct {
 }
 
 type AuthConfig struct {
-	AccessKey string `yaml:"access_key"`
 	SecretKey string `yaml:"secret_key"`
 }

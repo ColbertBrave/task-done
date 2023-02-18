@@ -1,11 +1,13 @@
 package server
 
 import (
+	"cloud-disk/internal/auth"
 	"cloud-disk/internal/log"
-	"github.com/gin-gonic/gin"
 	"net"
 	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 var options []Option
@@ -29,6 +31,7 @@ func NewServer(addr string) *Server {
 	ginEngine := gin.New()
 	ginEngine.Use(gin.Recovery())
 	ginEngine.Use(GetCostTimeOfRequest())
+	ginEngine.Use(Authenticate())
 
 	return &Server{
 		addr: addr,
@@ -46,6 +49,17 @@ func GetCostTimeOfRequest() gin.HandlerFunc {
 		c.Next()
 		costTime := time.Since(startTime)
 		log.Info("%s|%s|cost time %d ms", c.Request.Method, c.Request.URL, costTime)
+	}
+}
+
+func Authenticate() gin.HandlerFunc {
+	return func(c *gin.Context) {
+		err := auth.VerifyRequest(auth.Auth, c.Request)
+		if err != nil {
+			log.Error("verify request error:%s", err)
+			return
+		}
+		c.Next()
 	}
 }
 

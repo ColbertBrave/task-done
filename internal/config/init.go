@@ -7,6 +7,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
+	"cloud-disk/internal/auth"
 	"cloud-disk/internal/constants"
 )
 
@@ -19,6 +20,7 @@ func InitConfig() error {
 		return err
 	}
 	AppCfg = cloudDiskCfg
+	auth.Auth.SecretKey = []byte(AppCfg.AuthCfg.SecretKey)
 	return nil
 }
 

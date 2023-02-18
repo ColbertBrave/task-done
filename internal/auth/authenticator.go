@@ -13,8 +13,6 @@ import (
 	"cloud-disk/internal/log"
 )
 
-var Auth Authenticator
-
 type Authenticator interface {
 	Sign(body string, expireTime int64) (string, error)
 	Verify(body string, sign string) error
@@ -24,7 +22,7 @@ type HmacAuthenticator struct {
 	SecretKey []byte
 }
 
-func (h *HmacAuthenticator) Sign(body string, expireTime int64) (string, error) {
+func (h HmacAuthenticator) Sign(body string, expireTime int64) (string, error) {
 	hmacHash := hmac.New(sha256.New, h.SecretKey)
 	expireTimeStamp := strconv.FormatInt(expireTime, 10)
 	_, err := io.WriteString(hmacHash, body+":"+expireTimeStamp)
@@ -37,12 +35,13 @@ func (h *HmacAuthenticator) Sign(body string, expireTime int64) (string, error) 
 	return sign, nil
 }
 
-func (h *HmacAuthenticator) Verify(body string, sign string) error {
+func (h HmacAuthenticator) Verify(body string, sign string) error {
 	signSlice := strings.Split(sign, ":")
 	if signSlice[len(signSlice)-1] == "" {
 		return errors.New("empty expire time field in the sign")
 	}
 
+	// 签名信息的最后一位为过期时间
 	expireTime, err := strconv.ParseInt(signSlice[len(signSlice)-1], 10, 64)
 	if err != nil {
 		return err

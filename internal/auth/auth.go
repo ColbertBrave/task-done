@@ -1,22 +1,26 @@
 package auth
 
-// func VerifySignOfRequest(authenticator Authenticator) gin.HandlerFunc {
-// 	return func(c *gin.Context) {
-// 		var err error
-// 		switch c.Request.Method {
-// 		case "PATCH", "POST",	"PUT":
+import (
+	"errors"
+	"io"
+	"net/http"
 
-// 	}
-// }
+	"cloud-disk/internal/log"
+)
 
-// func verifyRequest(authenticator Authenticator, request *http.Request) error {
-// 	sign, isOk := request.Header["Authorization"]
-// 	if !isOk || len(sign) == 0 {
-// 		return errors.New("no Authorization field in the request header")
-// 	}
+var Auth HmacAuthenticator
 
-// 	body := []byte{}
-// 	if
+func VerifyRequest(authenticator Authenticator, request *http.Request) error {
+	sign, isOk := request.Header["Authorization"]
+	if !isOk || len(sign) == 0 {
+		return errors.New("no Authorization field in the request header")
+	}
 
-// 	return authenticator.Verify(request.Body, sign[0])
-// }
+	bytes, err := io.ReadAll(request.Body)
+	if err != nil {
+		log.Error("read the request body error:%s", err)
+		return err
+	}
+
+	return authenticator.Verify(string(bytes), sign[0])
+}
