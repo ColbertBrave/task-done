@@ -7,7 +7,7 @@ import (
 
 	"gopkg.in/yaml.v3"
 
-	"cloud-disk/internal/constants"
+	"github.com/cloud-disk/internal/constants"
 )
 
 var AppCfg *CloudDiskConfig

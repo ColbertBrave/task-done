@@ -10,7 +10,7 @@ import (
 	"strings"
 	"time"
 
-	"cloud-disk/internal/log"
+	"github.com/cloud-disk/internal/log"
 )
 
 type Authenticator interface {
@@ -53,7 +53,7 @@ func (h HmacAuthenticator) Verify(body string, sign string) error {
 
 	verifySign, err := h.Sign(body, expireTime)
 	if err != nil {
-		return errors.New("fail to call Sign")
+		return err
 	}
 
 	if verifySign != sign {

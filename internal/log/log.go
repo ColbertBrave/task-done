@@ -3,8 +3,8 @@ package log
 import (
 	"path/filepath"
 
-	"cloud-disk/internal/config"
-	"cloud-disk/internal/constants"
+	"github.com/cloud-disk/internal/config"
+	"github.com/cloud-disk/internal/constants"
 )
 
 var (
@@ -34,13 +34,13 @@ func Error(format string, args ...interface{}) {
 		return
 	}
 
-	prefix := appendPrefix()
+	prefix := appendPrefix(format)
 	if len(args) == 0 {
-		zapLog.sugarLog.Error(prefix + format)
+		zapLog.sugarLog.Error(prefix)
 		return
 	}
 
-	zapLog.sugarLog.Errorf(prefix+format, args)
+	zapLog.sugarLog.Errorf(prefix, args)
 }
 
 func Fatal(format string, args ...interface{}) {
@@ -48,13 +48,13 @@ func Fatal(format string, args ...interface{}) {
 		return
 	}
 
-	prefix := appendPrefix()
+	prefix := appendPrefix(format)
 	if len(args) == 0 {
-		zapLog.sugarLog.Fatal(prefix + format)
+		zapLog.sugarLog.Fatal(prefix)
 		return
 	}
 
-	zapLog.sugarLog.Fatalf(prefix+format, args)
+	zapLog.sugarLog.Fatalf(prefix, args)
 }
 
 func Info(format string, args ...interface{}) {
@@ -62,13 +62,13 @@ func Info(format string, args ...interface{}) {
 		return
 	}
 
-	prefix := appendPrefix()
+	prefix := appendPrefix(format)
 	if len(args) == 0 {
-		zapLog.sugarLog.Infof(prefix + format)
+		zapLog.sugarLog.Info(prefix)
 		return
 	}
 
-	zapLog.sugarLog.Infof(prefix+format, args)
+	zapLog.sugarLog.Infof(prefix, args)
 }
 
 func Debug(format string, args ...interface{}) {
@@ -76,13 +76,13 @@ func Debug(format string, args ...interface{}) {
 		return
 	}
 
-	prefix := appendPrefix()
+	prefix := appendPrefix(format)
 	if len(args) == 0 {
-		zapLog.sugarLog.Debug(prefix + format)
+		zapLog.sugarLog.Debug(prefix)
 		return
 	}
 
-	zapLog.sugarLog.Debugf(prefix+format, args)
+	zapLog.sugarLog.Debugf(prefix, args)
 }
 
 func Warn(format string, args ...interface{}) {
@@ -90,11 +90,11 @@ func Warn(format string, args ...interface{}) {
 		return
 	}
 
-	prefix := appendPrefix()
+	prefix := appendPrefix(format)
 	if len(args) == 0 {
-		zapLog.sugarLog.Warn(prefix + format)
+		zapLog.sugarLog.Warn(prefix)
 		return
 	}
 
-	zapLog.sugarLog.Warnf(prefix+format, args)
+	zapLog.sugarLog.Warnf(prefix, args)
 }

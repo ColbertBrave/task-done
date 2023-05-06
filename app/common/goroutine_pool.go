@@ -1,7 +1,7 @@
 package common
 
 import (
-	"cloud-disk/internal/log"
+	"github.com/cloud-disk/internal/log"
 
 	"github.com/panjf2000/ants/v2"
 )
@@ -14,7 +14,7 @@ type GoroutinePool struct {
 
 func InitGoroutinePool(num int) error {
 	if num <= 0 {
-		return InvalidInputParamErr
+		return ErrInvalidInputParam
 	}
 
 	pool, err := ants.NewPool(num)

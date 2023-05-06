@@ -5,10 +5,16 @@ mysql:
   password: 'ranxuening'
   database: 'cloud_disk'
 
+influxdb:
+  host: localhost
+  port: 8086
+  username: 'root'
+  password: 'ranxuening'
+
 log:
   level: 'info'
-  sys_log_path: '/logs/system.logs'
-  err_log_path: '/logs/error.logs'
+  sys_log_path: '/logs/system.log'
+  err_log_path: '/logs/error.log'
   rotate: 2
   max_size: 512
   max_backups: 10
@@ -25,4 +31,4 @@ time:
   query_time: "0 1 * * *"
 
 auth:
-  secret_key: thisisasecretkey
+  secret_key: secret

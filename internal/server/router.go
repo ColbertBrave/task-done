@@ -1,8 +1,8 @@
 package server
 
 import (
-	"cloud-disk/app/user"
-	"cloud-disk/internal/constants"
+	"github.com/cloud-disk/app/user"
+	"github.com/cloud-disk/internal/constants"
 
 	"github.com/gin-gonic/gin"
 )

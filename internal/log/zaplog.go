@@ -14,8 +14,8 @@ import (
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
 
-	"cloud-disk/internal/config"
-	"cloud-disk/internal/constants"
+	"github.com/cloud-disk/internal/config"
+	"github.com/cloud-disk/internal/constants"
 )
 
 type ZapLog struct {
@@ -63,7 +63,7 @@ func getLogWriter(conf *config.LogConfig) zapcore.WriteSyncer {
 			MaxAge:     conf.MaxAge,                                        // 文件最多保存多少天
 			Compress:   conf.Compress,                                      // 是否压缩日志
 			MaxBackups: conf.MaxBackups,                                    // 保存旧日志的文件数量
-			LocalTime:  true,
+			LocalTime:  true,                                               // 是否使用当地时间
 		}),
 	}
 
@@ -112,7 +112,7 @@ func (z *ZapLog) close() {
 	}
 }
 
-func appendPrefix() string {
+func appendPrefix(logFormat string) string {
 	function, file, line, ok := runtime.Caller(2)
 	if !ok {
 		return ""
@@ -120,8 +120,16 @@ func appendPrefix() string {
 
 	file = path.Base(file)
 	funcName := runtime.FuncForPC(function).Name()
-	funcName = path.Base(funcName)
 
-	prefix := file + ":" + strconv.Itoa(line) + "|" + funcName + "|"
-	return prefix
+	// 每条日志信息格式为"文件名:行数|函数名|日志"
+	builder := strings.Builder{}
+	builder.WriteString(file)
+	builder.WriteString(":")
+	builder.WriteString(strconv.Itoa(line))
+	builder.WriteString("|")
+	builder.WriteString(funcName)
+	builder.WriteString("|")
+	builder.WriteString(logFormat)
+
+	return builder.String()
 }

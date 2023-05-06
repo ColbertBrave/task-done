@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"cloud-disk/internal/constants"
+	"github.com/cloud-disk/internal/constants"
 )
 
 type SystemLog struct {

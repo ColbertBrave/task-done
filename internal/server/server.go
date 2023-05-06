@@ -1,13 +1,14 @@
 package server
 
 import (
-	"cloud-disk/internal/auth"
-	"cloud-disk/internal/log"
 	"net"
 	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/cloud-disk/internal/auth"
+	"github.com/cloud-disk/internal/log"
 )
 
 var options []Option

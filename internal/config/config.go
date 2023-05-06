@@ -2,10 +2,11 @@ package config
 
 type CloudDiskConfig struct {
 	MySQLCfg  MySQLConfig       `yaml:"mysql"`
-	LogCfg    LogConfig         `yaml:"logs"`
+	LogCfg    LogConfig         `yaml:"log"`
 	ServerCfg ServerConfig      `yaml:"server"`
 	TaskTime  ScheduledTaskTime `yaml:"time"`
 	AuthCfg   AuthConfig        `yaml:"auth"`
+	InfluxCfg InfluxConfig      `yaml:"influx"`
 }
 
 type MySQLConfig struct {
@@ -40,4 +41,11 @@ type ScheduledTaskTime struct {
 
 type AuthConfig struct {
 	SecretKey string `yaml:"secret_key"`
+}
+
+type InfluxConfig struct {
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	UserName string `yaml:"user_name"`
+	Password string `yaml:"password"`
 }

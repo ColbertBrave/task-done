@@ -1,9 +1,10 @@
 package user
 
 import (
-	"cloud-disk/app/common"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/cloud-disk/app/common"
+	"github.com/gin-gonic/gin"
 )
 
 func GetUserInfo(c *gin.Context) {

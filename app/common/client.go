@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"time"
 
-	"cloud-disk/internal/log"
+	"github.com/cloud-disk/internal/log"
 )
 
 var Client *HttpClient

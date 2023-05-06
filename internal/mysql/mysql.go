@@ -9,8 +9,8 @@ import (
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
 
-	"cloud-disk/internal/config"
-	"cloud-disk/internal/log"
+	"github.com/cloud-disk/internal/config"
+	"github.com/cloud-disk/internal/log"
 )
 
 var MySqlTables *Tables

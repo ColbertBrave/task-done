@@ -2,13 +2,14 @@ package main
 
 import (
 	"fmt"
+	"github.com/cloud-disk/internal/influxdb"
 
-	"cloud-disk/app/common"
-	"cloud-disk/internal/auth"
-	"cloud-disk/internal/config"
-	"cloud-disk/internal/log"
-	"cloud-disk/internal/mysql"
-	"cloud-disk/internal/server"
+	"github.com/cloud-disk/app/common"
+	"github.com/cloud-disk/internal/auth"
+	"github.com/cloud-disk/internal/config"
+	"github.com/cloud-disk/internal/log"
+	"github.com/cloud-disk/internal/mysql"
+	"github.com/cloud-disk/internal/server"
 )
 
 func main() {
@@ -55,6 +56,8 @@ func initialize() error {
 	//	logs.Error("initialize MySQL error:%s", err)
 	//	return err
 	//}
+
+	err := influxdb.InitInfluxdb()
 
 	err = common.NewScheduledTask().StartScheduledTask()
 	if err != nil {

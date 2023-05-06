@@ -5,8 +5,8 @@ import (
 
 	"github.com/robfig/cron/v3"
 
-	"cloud-disk/internal/config"
-	"cloud-disk/internal/log"
+	"github.com/cloud-disk/internal/config"
+	"github.com/cloud-disk/internal/log"
 )
 
 var task *ScheduledTask

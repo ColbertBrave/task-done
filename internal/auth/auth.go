@@ -1,12 +1,12 @@
 package auth
 
 import (
-	"cloud-disk/internal/config"
-	"errors"
 	"io"
 	"net/http"
 
-	"cloud-disk/internal/log"
+	"github.com/cloud-disk/internal/log"
+	"github.com/cloud-disk/app/common"
+	"github.com/cloud-disk/internal/config"
 )
 
 var Auth HmacAuthenticator
@@ -18,7 +18,7 @@ func InitAuth() {
 func VerifyRequest(authenticator Authenticator, request *http.Request) error {
 	sign, isOk := request.Header["Authorization"]
 	if !isOk || len(sign) == 0 {
-		return errors.New("no Authorization field in the request header")
+		return common.ErrNoAuthorization
 	}
 
 	bytes, err := io.ReadAll(request.Body)
