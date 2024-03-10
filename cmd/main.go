@@ -44,7 +44,7 @@ func initialize() error {
 		return err
 	}
 
-	log.InitLog(&config.GetConfig().LogCfg)
+	log.InitLog()
 	auth.InitAuth()
 	influxdb.InitInfluxdb()
 
@@ -66,16 +66,14 @@ func initialize() error {
 		return err
 	}
 
-	err = pool.InitGoroutinePool(config.GetConfig().ServerCfg.GoroutineNum)
+	err = pool.InitGoroutinePool()
 	if err != nil {
 		log.Error("initialize goroutine pool error: %s", err)
 		return err
 	}
 
 	client.InitHttpClient()
-
-	serverAddr := config.GetConfig().ServerCfg.Host + ":" + config.GetConfig().ServerCfg.Port
-	server.InitServer(serverAddr)
+	server.InitServer()
 
 	log.Info("success to initialize the cloud disk")
 	return nil

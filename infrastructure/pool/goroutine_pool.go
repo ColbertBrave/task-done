@@ -2,6 +2,7 @@ package pool
 
 import (
 	"github.com/cloud-disk/app/types/result"
+	"github.com/cloud-disk/infrastructure/config"
 	"github.com/cloud-disk/infrastructure/log"
 
 	"github.com/panjf2000/ants/v2"
@@ -13,7 +14,8 @@ type GoroutinePool struct {
 	goroutinePool *ants.Pool
 }
 
-func InitGoroutinePool(num int) error {
+func InitGoroutinePool() error {
+	num := config.GetConfig().Server.PoolGoroutineNum
 	if num <= 0 {
 		return result.ErrInvalidInputParam
 	}

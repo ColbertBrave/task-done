@@ -1,9 +1,10 @@
 package auth
 
 import (
-	"github.com/cloud-disk/app/types/result"
 	"io"
 	"net/http"
+
+	"github.com/cloud-disk/app/types/result"
 
 	"github.com/cloud-disk/infrastructure/config"
 	"github.com/cloud-disk/infrastructure/log"
@@ -12,7 +13,7 @@ import (
 var Auth HmacAuthenticator
 
 func InitAuth() {
-	Auth.SecretKey = []byte(config.GetConfig().AuthCfg.SecretKey)
+	Auth.SecretKey = []byte(config.GetConfig().Auth.SecretKey)
 }
 
 func VerifyRequest(authenticator Authenticator, request *http.Request) error {

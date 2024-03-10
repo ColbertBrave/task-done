@@ -19,10 +19,10 @@ type QueryResult struct {
 }
 
 func InitInfluxdb() {
-	host := config.GetConfig().InfluxCfg.Host
-	port := config.GetConfig().InfluxCfg.Port
-	userName := config.GetConfig().InfluxCfg.UserName
-	password := config.GetConfig().InfluxCfg.Password
+	host := config.GetConfig().Influxdb.Host
+	port := config.GetConfig().Influxdb.Port
+	userName := config.GetConfig().Influxdb.UserName
+	password := config.GetConfig().Influxdb.Password
 
 	influxURL := fmt.Sprintf("%s:%s%s%s", host, port, userName, password)
 	authToken := ""

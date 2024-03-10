@@ -1,15 +1,24 @@
 package config
 
 type AppConfig struct {
-	MySQLCfg  MySQLConfig       `yaml:"mysql"`
-	LogCfg    LogConfig         `yaml:"log"`
-	ServerCfg ServerConfig      `yaml:"server"`
-	TaskTime  ScheduledTaskTime `yaml:"time"`
-	AuthCfg   AuthConfig        `yaml:"auth"`
-	InfluxCfg InfluxConfig      `yaml:"influx"`
+	MySQL    MySQLConfig       `yaml:"mysql"`
+	Log      LogConfig         `yaml:"log"`
+	Server   ServerConfig      `yaml:"server"`
+	TaskTime ScheduledTaskTime `yaml:"time"`
+	Auth     AuthConfig        `yaml:"auth"`
+	Influxdb InfluxConfig      `yaml:"influx"`
+	Redis    RedisConfig       `yaml:"redis"`
 }
 
 type MySQLConfig struct {
+	Host     string `yaml:"host"`
+	Port     string `yaml:"port"`
+	UserName string `yaml:"user_name"`
+	Password string `yaml:"password"`
+	Database string `yaml:"database"`
+}
+
+type RedisConfig struct {
 	Host     string `yaml:"host"`
 	Port     string `yaml:"port"`
 	UserName string `yaml:"user_name"`
@@ -30,9 +39,9 @@ type LogConfig struct {
 }
 
 type ServerConfig struct {
-	Host         string `yaml:"host"`
-	Port         string `yaml:"port"`
-	GoroutineNum int    `yaml:"goroutine_num"`
+	Host             string `yaml:"host"`
+	Port             string `yaml:"port"`
+	PoolGoroutineNum int    `yaml:"goroutine_num"`
 }
 
 type ScheduledTaskTime struct {

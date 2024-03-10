@@ -8,21 +8,22 @@ import (
 	"github.com/gin-gonic/gin"
 
 	"github.com/cloud-disk/infrastructure/auth"
+	"github.com/cloud-disk/infrastructure/config"
 	"github.com/cloud-disk/infrastructure/log"
 )
 
 var server *Server
 
 type Server struct {
-	addr       string
 	httpServer *http.Server
 	ginEngine  *gin.Engine
 }
 
 type Option func(engine *gin.Engine)
 
-func InitServer(addr string) {
-	if addr == "" {
+func InitServer() {
+	serverAddr := config.GetConfig().Server.Host + ":" + config.GetConfig().MySQL.Port
+	if serverAddr == "" {
 		log.Error("the server addr is empty")
 		return
 	}
@@ -36,9 +37,8 @@ func InitServer(addr string) {
 	ginEngine.Use(Authenticate())
 
 	server = &Server{
-		addr: addr,
 		httpServer: &http.Server{
-			Addr:    addr,
+			Addr:    serverAddr,
 			Handler: ginEngine,
 		},
 		ginEngine: ginEngine,
@@ -74,7 +74,7 @@ func Authenticate() gin.HandlerFunc {
 }
 
 func (s *Server) Start() error {
-	listener, err := net.Listen("tcp", s.addr)
+	listener, err := net.Listen("tcp", s.httpServer.Addr)
 	if err != nil {
 		return err
 	}

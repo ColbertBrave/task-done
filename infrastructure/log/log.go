@@ -13,9 +13,9 @@ var (
 	zapLog *ZapLog
 )
 
-func InitLog(conf *config.LogConfig) {
-	sysLog = NewSystemLog(filepath.Join(constants.RootPath, config.GetConfig().LogCfg.SysLogPath))
-	zapLog = NewZapLog(conf)
+func InitLog() {
+	sysLog = NewSystemLog(filepath.Join(constants.RootPath, config.GetConfig().Log.SysLogPath))
+	zapLog = NewZapLog(&config.GetConfig().Log)
 }
 
 func Close() {

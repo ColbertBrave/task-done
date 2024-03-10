@@ -20,11 +20,11 @@ type Tables struct {
 }
 
 func InitMySQL() error {
-	userName := config.GetConfig().MySQLCfg.UserName
-	password := config.GetConfig().MySQLCfg.Password
-	host := config.GetConfig().MySQLCfg.Host
-	port := config.GetConfig().MySQLCfg.Port
-	database := config.GetConfig().MySQLCfg.Database
+	userName := config.GetConfig().MySQL.UserName
+	password := config.GetConfig().MySQL.Password
+	host := config.GetConfig().MySQL.Host
+	port := config.GetConfig().MySQL.Port
+	database := config.GetConfig().MySQL.Database
 
 	dbURL := fmt.Sprintf("%s:%s@(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local",
 		userName, password, host, port, database)
