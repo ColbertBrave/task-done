@@ -25,16 +25,12 @@ func main() {
 		return
 	}
 
-	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
-
 	server.Run()
 
-	for {
-		select {
-		case <-ctx.Done():
-			finalize()
-			stop()
-		}
+	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
+	for range ctx.Done() {
+		finalize()
+		stop()
 	}
 }
 
