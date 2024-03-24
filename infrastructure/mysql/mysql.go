@@ -8,9 +8,8 @@ import (
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"gorm.io/gorm/schema"
-
-	"github.com/cloud-disk/infrastructure/config"
-	"github.com/cloud-disk/infrastructure/log"
+	"github.com/task-done/infrastructure/config"
+	"github.com/task-done/infrastructure/log"
 )
 
 var MySqlTables *Tables

@@ -7,15 +7,15 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/cloud-disk/infrastructure/auth"
-	"github.com/cloud-disk/infrastructure/client"
-	"github.com/cloud-disk/infrastructure/config"
-	"github.com/cloud-disk/infrastructure/influxdb"
-	"github.com/cloud-disk/infrastructure/log"
-	"github.com/cloud-disk/infrastructure/mysql"
-	"github.com/cloud-disk/infrastructure/pool"
-	"github.com/cloud-disk/infrastructure/server"
-	"github.com/cloud-disk/infrastructure/task"
+	"github.com/task-done/infrastructure/auth"
+	"github.com/task-done/infrastructure/client"
+	"github.com/task-done/infrastructure/config"
+	"github.com/task-done/infrastructure/influxdb"
+	"github.com/task-done/infrastructure/log"
+	"github.com/task-done/infrastructure/mysql"
+	"github.com/task-done/infrastructure/pool"
+	"github.com/task-done/infrastructure/server"
+	"github.com/task-done/infrastructure/task"
 )
 
 func main() {
@@ -26,6 +26,7 @@ func main() {
 	}
 
 	server.Run()
+	log.System("successfully start the server")
 
 	ctx, stop := signal.NotifyContext(context.Background(), os.Interrupt, syscall.SIGTERM, syscall.SIGKILL)
 	for range ctx.Done() {
@@ -71,7 +72,7 @@ func initialize() error {
 	client.InitHttpClient()
 	server.InitServer()
 
-	log.Info("success to initialize the cloud disk")
+	log.System("successfully initialize the service")
 	return nil
 }
 
@@ -79,7 +80,7 @@ func finalize() {
 	log.Info("exit the process!")
 	server.Close()
 	if err := mysql.Close(); err != nil {
-		log.Error("close mysql error|%s", err)
+		log.System("close mysql error|%s", err)
 	}
 	task.NewScheduledTask().Stop()
 	log.Close()

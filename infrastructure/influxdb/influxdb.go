@@ -5,9 +5,9 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/cloud-disk/infrastructure/config"
-	"github.com/cloud-disk/infrastructure/log"
 	influx "github.com/influxdata/influxdb-client-go"
+	"github.com/task-done/infrastructure/config"
+	"github.com/task-done/infrastructure/log"
 )
 
 var InfluxClient influx.Client

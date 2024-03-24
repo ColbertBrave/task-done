@@ -10,12 +10,11 @@ import (
 	"strings"
 	"time"
 
+	"github.com/task-done/infrastructure/config"
+	"github.com/task-done/infrastructure/constants"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 	"gopkg.in/natefinch/lumberjack.v2"
-
-	"github.com/cloud-disk/infrastructure/config"
-	"github.com/cloud-disk/infrastructure/constants"
 )
 
 type ZapLog struct {
@@ -59,12 +58,12 @@ func mapToLoggerLevel(level string) zapcore.Level {
 func getLogWriter(conf *config.LogConfig) zapcore.WriteSyncer {
 	syncers := []zapcore.WriteSyncer{
 		zapcore.AddSync(&lumberjack.Logger{
-			Filename:   filepath.Join(constants.RootPath, conf.ErrLogPath), // ⽇志⽂件路径
-			MaxSize:    conf.MaxSize,                                       // 单位为MB,默认为512MB
-			MaxAge:     conf.MaxAge,                                        // 文件最多保存多少天
-			Compress:   conf.Compress,                                      // 是否压缩日志
-			MaxBackups: conf.MaxBackups,                                    // 保存旧日志的文件数量
-			LocalTime:  true,                                               // 是否使用当地时间
+			Filename:   filepath.Join(config.GetConfig().Log.ErrLogPath), // ⽇志⽂件路径
+			MaxSize:    conf.MaxSize,                                     // 单位为MB,默认为512MB
+			MaxAge:     conf.MaxAge,                                      // 文件最多保存多少天
+			Compress:   conf.Compress,                                    // 是否压缩日志
+			MaxBackups: conf.MaxBackups,                                  // 保存旧日志的文件数量
+			LocalTime:  true,                                             // 是否使用当地时间
 		}),
 	}
 
@@ -77,7 +76,7 @@ func getLogWriter(conf *config.LogConfig) zapcore.WriteSyncer {
 func getEncoder() zapcore.Encoder {
 	// 自定义时间输出格式
 	customTimeEncoder := func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
-		enc.AppendString(t.Format(constants.TimeFormat))
+		enc.AppendString(t.Format(constants.LogTimeFormat))
 	}
 
 	// 自定义日志级别显示
@@ -120,7 +119,7 @@ func appendPrefix(logFormat string) string {
 	}
 
 	file = path.Base(file)
-	funcName := runtime.FuncForPC(function).Name()
+	funcName := path.Base(runtime.FuncForPC(function).Name())
 
 	// 每条日志信息格式为"文件名:行数|函数名|日志"
 	builder := strings.Builder{}

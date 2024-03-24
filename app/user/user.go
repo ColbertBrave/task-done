@@ -3,8 +3,8 @@ package user
 import (
 	"net/http"
 
-	"github.com/cloud-disk/app/types/result"
 	"github.com/gin-gonic/gin"
+	"github.com/task-done/app/types/result"
 )
 
 func GetUserInfo(c *gin.Context) {

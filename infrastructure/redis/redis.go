@@ -1,8 +1,8 @@
 package redis
 
 import (
-	"github.com/cloud-disk/infrastructure/config"
 	"github.com/go-redis/redis"
+	"github.com/task-done/infrastructure/config"
 )
 
 var client *redis.Client

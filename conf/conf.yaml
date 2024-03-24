@@ -1,0 +1,34 @@
+mysql:
+  host: 172.18.10.174
+  port: 3306
+  user_name: 'root'
+  password: 'ranxuening'
+  database: 'task-done'
+
+influxdb:
+  host: localhost
+  port: 8086
+  username: 'root'
+  password: 'ranxuening'
+
+log:
+  level: 'info'
+  sys_log_path: '/logs/system.log'
+  err_log_path: '/logs/error.log'
+  rotate: 2
+  max_size: 512
+  max_backups: 10
+  max_age_day: 180
+  is_compress: true
+  std_out: false
+
+server:
+  host: 127.0.0.1
+  port: 8080
+  goroutine_num: 5
+
+time:
+  query_time: "0 1 * * *"
+
+auth:
+  secret_key: secret

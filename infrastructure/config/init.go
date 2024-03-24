@@ -8,8 +8,7 @@ import (
 	"reflect"
 	"runtime"
 
-	"github.com/cloud-disk/infrastructure/constants"
-
+	"github.com/task-done/infrastructure/constants"
 	"gopkg.in/yaml.v3"
 )
 
@@ -17,11 +16,14 @@ var app *AppConfig
 
 func InitConfig() error {
 	absolutePath := getTheAbsolutePath()
-	confFilePath := filepath.Join(absolutePath, constants.ConfigFilePath)
-	appConfig, err := parseConfig(confFilePath)
+	configFilePath := filepath.Join(absolutePath, constants.ConfigFilePath)
+	appConfig, err := parseConfig(configFilePath)
 	if err != nil {
 		return err
 	}
+
+	appConfig.Log.ErrLogPath = absolutePath + appConfig.Log.ErrLogPath
+	appConfig.Log.SysLogPath = absolutePath + appConfig.Log.SysLogPath
 	app = appConfig
 
 	return nil

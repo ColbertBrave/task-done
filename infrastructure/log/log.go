@@ -4,8 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/cloud-disk/infrastructure/config"
-	"github.com/cloud-disk/infrastructure/constants"
+	"github.com/task-done/infrastructure/config"
 )
 
 var (
@@ -14,7 +13,7 @@ var (
 )
 
 func InitLog() {
-	sysLog = NewSystemLog(filepath.Join(constants.RootPath, config.GetConfig().Log.SysLogPath))
+	sysLog = NewSystemLog(filepath.Join(config.GetConfig().Log.SysLogPath))
 	zapLog = NewZapLog(&config.GetConfig().Log)
 }
 
@@ -100,11 +99,14 @@ func Warn(format string, args ...interface{}) {
 	zapLog.sugarLog.Warnf(prefix, args)
 }
 
-func Sys(format string, args ...interface{}) {
+func System(format string, args ...interface{}) {
+	format = format+"%s"
+	args = append(args, "\n")
+
 	if sysLog == nil {
 		fmt.Printf(format, args...)
 		return
 	}
 
-	sysLog.log(format, args)
+	sysLog.log(format, args...)
 }

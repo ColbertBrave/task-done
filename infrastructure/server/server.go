@@ -6,10 +6,9 @@ import (
 	"time"
 
 	"github.com/gin-gonic/gin"
-
-	"github.com/cloud-disk/infrastructure/auth"
-	"github.com/cloud-disk/infrastructure/config"
-	"github.com/cloud-disk/infrastructure/log"
+	"github.com/task-done/infrastructure/auth"
+	"github.com/task-done/infrastructure/config"
+	"github.com/task-done/infrastructure/log"
 )
 
 var server *Server

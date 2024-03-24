@@ -6,7 +6,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/cloud-disk/infrastructure/constants"
+	"github.com/task-done/infrastructure/constants"
 )
 
 type SystemLog struct {
@@ -60,7 +60,7 @@ func (s *SystemLog) monitor() {
 		select {
 		case _, ok := <-s.exit:
 			if ok {
-				fmt.Println("system logs is closed at", time.Now().Format(constants.TimeFormat))
+				fmt.Println("system logs is closed at", time.Now().Format(constants.LogTimeFormat))
 			}
 			return
 
@@ -73,6 +73,11 @@ func (s *SystemLog) monitor() {
 }
 
 func (s *SystemLog) log(format string, args ...interface{}) {
+	if len(args) == 0 {
+		fmt.Print(time.Now().Format(time.DateTime)+"|SYSTEM|"+format)
+		return
+	}
+
 	fmt.Printf(time.Now().Format(time.DateTime)+"|SYSTEM|"+format, args...)
 }
 

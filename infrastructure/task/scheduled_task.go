@@ -4,9 +4,8 @@ import (
 	"sync"
 
 	"github.com/robfig/cron/v3"
-
-	"github.com/cloud-disk/infrastructure/config"
-	"github.com/cloud-disk/infrastructure/log"
+	"github.com/task-done/infrastructure/config"
+	"github.com/task-done/infrastructure/log"
 )
 
 var task *ScheduledTask
