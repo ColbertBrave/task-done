@@ -30,7 +30,7 @@ func NewZapLog(conf *config.LogConfig) *ZapLog {
 	zapLog.level.SetLevel(mapToLoggerLevel(conf.Level))
 
 	writeSyncer := getLogWriter(conf)
-	encoder := getEncoder()
+	encoder := setLogEncoder()
 	core := zapcore.NewCore(encoder, writeSyncer, zapLog.level)
 
 	zapLog.sugarLog = zap.New(core, zap.AddCaller(), zap.AddCallerSkip(1)).Sugar()
@@ -48,8 +48,8 @@ func mapToLoggerLevel(level string) zapcore.Level {
 	}
 
 	level = strings.ToLower(level)
-	ret, isExist := logLevelMap[level]
-	if isExist {
+	ret, exist := logLevelMap[level]
+	if exist {
 		return ret
 	}
 	return zapcore.InfoLevel
@@ -73,7 +73,7 @@ func getLogWriter(conf *config.LogConfig) zapcore.WriteSyncer {
 	return zapcore.NewMultiWriteSyncer(syncers...)
 }
 
-func getEncoder() zapcore.Encoder {
+func setLogEncoder() zapcore.Encoder {
 	// 自定义时间输出格式
 	customTimeEncoder := func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 		enc.AppendString(t.Format(constants.LogTimeFormat))

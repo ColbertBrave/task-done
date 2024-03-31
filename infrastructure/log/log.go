@@ -12,7 +12,7 @@ var (
 	zapLog *ZapLog
 )
 
-func InitLog() {
+func Init() {
 	sysLog = NewSystemLog(filepath.Join(config.GetConfig().Log.SysLogPath))
 	zapLog = NewZapLog(&config.GetConfig().Log)
 }

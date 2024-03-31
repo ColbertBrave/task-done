@@ -14,7 +14,7 @@ import (
 
 var app *AppConfig
 
-func InitConfig() error {
+func Init() error {
 	absolutePath := getTheAbsolutePath()
 	configFilePath := filepath.Join(absolutePath, constants.ConfigFilePath)
 	appConfig, err := parseConfig(configFilePath)
@@ -24,6 +24,7 @@ func InitConfig() error {
 
 	appConfig.Log.ErrLogPath = absolutePath + appConfig.Log.ErrLogPath
 	appConfig.Log.SysLogPath = absolutePath + appConfig.Log.SysLogPath
+	appConfig.SQLite.Path = absolutePath + appConfig.SQLite.Path
 	app = appConfig
 
 	return nil

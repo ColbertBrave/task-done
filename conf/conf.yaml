@@ -5,6 +5,9 @@ mysql:
   password: 'ranxuening'
   database: 'task-done'
 
+sqlite:
+  path: "/storage/task-done.db"
+
 influxdb:
   host: localhost
   port: 8086

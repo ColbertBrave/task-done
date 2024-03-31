@@ -11,7 +11,7 @@ import (
 
 var Auth HmacAuthenticator
 
-func InitAuth() {
+func Init() {
 	Auth.SecretKey = []byte(config.GetConfig().Auth.SecretKey)
 }
 

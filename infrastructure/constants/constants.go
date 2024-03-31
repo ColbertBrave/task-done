@@ -1,7 +1,5 @@
 package constants
 
-const (
-	ConfigFilePath = "/conf/conf.yaml"
-	PrefixURL  = "/v1/taskdone"
-	LogTimeFormat = "2006-01-02 15:04:05.000"
-)
+const ConfigFilePath = "/conf/conf.yaml"
+const PrefixURL = "/v1/taskdone"
+const LogTimeFormat = "2006-01-02 15:04:05.000"

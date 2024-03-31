@@ -11,7 +11,7 @@ import (
 
 var httpClient *http.Client
 
-func InitHttpClient() {
+func Init() {
 	var defaultTransport http.RoundTripper = &http.Transport{
 		Proxy: http.ProxyFromEnvironment,
 		DialContext: (&net.Dialer{

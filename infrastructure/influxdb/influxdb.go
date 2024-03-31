@@ -18,7 +18,7 @@ type QueryResult struct {
 	Value interface{} `json:"value"`
 }
 
-func InitInfluxdb() {
+func Init() {
 	host := config.GetConfig().Influxdb.Host
 	port := config.GetConfig().Influxdb.Port
 	userName := config.GetConfig().Influxdb.UserName

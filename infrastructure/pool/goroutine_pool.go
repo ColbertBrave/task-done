@@ -14,7 +14,7 @@ type GoroutinePool struct {
 	goroutinePool *ants.Pool
 }
 
-func InitGoroutinePool() error {
+func Init() error {
 	num := config.GetConfig().Server.PoolGoroutineNum
 	if num <= 0 {
 		return result.ErrInvalidInputParam

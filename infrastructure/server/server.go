@@ -20,7 +20,7 @@ type Server struct {
 
 type Option func(engine *gin.Engine)
 
-func InitServer() {
+func Init() {
 	serverAddr := config.GetConfig().Server.Host + ":" + config.GetConfig().MySQL.Port
 	if serverAddr == "" {
 		log.Error("the server addr is empty")
@@ -85,7 +85,28 @@ func (s *Server) Start() error {
 	return nil
 }
 
+func GET(relativePath string, handlers ...gin.HandlerFunc) {
+	if server == nil {
+		Init()
+	}
+
+	server.ginEngine.GET(relativePath, handlers...)
+}
+
+func POST(relativePath string, handlers ...gin.HandlerFunc) {
+	if server == nil {
+		Init()
+	}
+
+	server.ginEngine.POST(relativePath, handlers...)
+}
+
 func Close() {
+	if server == nil {
+		log.Info("the http server is nil")
+		return
+	}
+
 	if err := server.httpServer.Close(); err != nil {
 		log.Error("close http server err|%s", err)
 		return

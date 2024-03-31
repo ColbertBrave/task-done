@@ -4,19 +4,16 @@ go 1.22
 
 require (
 	github.com/gin-gonic/gin v1.9.1
-	github.com/go-sql-driver/mysql v1.8.0
 	github.com/influxdata/influxdb-client-go v1.4.0
 	github.com/panjf2000/ants/v2 v2.9.0
 	github.com/robfig/cron/v3 v3.0.1
 	go.uber.org/zap v1.27.0
 	gopkg.in/natefinch/lumberjack.v2 v2.2.1
 	gopkg.in/yaml.v3 v3.0.1
-	gorm.io/driver/mysql v1.5.6
 	gorm.io/gorm v1.25.8
 )
 
 require (
-	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/BurntSushi/toml v1.3.2 // indirect
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
 	github.com/CloudyKit/jet/v6 v6.2.0 // indirect
@@ -41,7 +38,7 @@ require (
 	github.com/golang/snappy v0.0.4 // indirect
 	github.com/gomarkdown/markdown v0.0.0-20231222211730-1d6d20845b47 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
-	github.com/google/uuid v1.6.0 // indirect
+	github.com/google/uuid v1.6.0
 	github.com/gorilla/css v1.0.1 // indirect
 	github.com/influxdata/line-protocol v0.0.0-20210922203350-b1ad95c89adf // indirect
 	github.com/iris-contrib/schema v0.0.6 // indirect
@@ -64,6 +61,7 @@ require (
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
+	github.com/mattn/go-sqlite3 v1.14.22 // indirect
 	github.com/microcosm-cc/bluemonday v1.0.26 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
 	github.com/modern-go/reflect2 v1.0.2 // indirect
@@ -102,4 +100,5 @@ require (
 	google.golang.org/protobuf v1.33.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gorm.io/driver/sqlite v1.5.5
 )

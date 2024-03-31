@@ -24,7 +24,7 @@
         {
             "type": "zshdb",
             "request": "launch",
-            "name": "Run",
+            "name": "RUN",
             "cwd": "${workspaceFolder}/scripts",
             "program": "${command:SelectScriptName}",
             "args": [],

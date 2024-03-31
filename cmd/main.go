@@ -7,14 +7,16 @@ import (
 	"os/signal"
 	"syscall"
 
+	"github.com/task-done/app/api"
+	"github.com/task-done/app/model"
 	"github.com/task-done/infrastructure/auth"
 	"github.com/task-done/infrastructure/client"
 	"github.com/task-done/infrastructure/config"
 	"github.com/task-done/infrastructure/influxdb"
 	"github.com/task-done/infrastructure/log"
-	"github.com/task-done/infrastructure/mysql"
 	"github.com/task-done/infrastructure/pool"
 	"github.com/task-done/infrastructure/server"
+	"github.com/task-done/infrastructure/sqlite"
 	"github.com/task-done/infrastructure/task"
 )
 
@@ -22,6 +24,12 @@ func main() {
 	err := initialize()
 	if err != nil {
 		fmt.Println(err)
+		return
+	}
+
+	// 自动建表
+	if err := sqlite.AutoMigrate(&model.Task{}, &model.User{}); err != nil {
+		log.System("auto miragte err|%s",err)
 		return
 	}
 
@@ -36,41 +44,36 @@ func main() {
 }
 
 func initialize() error {
-	err := config.InitConfig()
+	err := config.Init()
 	if err != nil {
 		return err
 	}
 
-	log.InitLog()
-	auth.InitAuth()
-	influxdb.InitInfluxdb()
+	log.Init()
+	auth.Init()
+	influxdb.Init()
 
-	//err = mysql.InitMySQL()
-	//if err != nil {
-	//	logs.Error("initialize MySQL error: %s", err)
-	//	return err
-	//}
-
-	// err = mongodb.InitMongoDB()
-	// if err != nil {
-	// 	log.Error("initialize MongoDB error: %s", err)
-	// 	return err
-	// }
-
-	err = task.NewScheduledTask().StartScheduledTask()
+	err = sqlite.Init()
 	if err != nil {
-		log.Error("start scheduled task error: %s", err)
+		log.Error("initialize sqlite err|%s", err)
 		return err
 	}
 
-	err = pool.InitGoroutinePool()
+	err = task.NewOnce().StartScheduledTask()
 	if err != nil {
-		log.Error("initialize goroutine pool error: %s", err)
+		log.Error("start scheduled task err|%s", err)
 		return err
 	}
 
-	client.InitHttpClient()
-	server.InitServer()
+	err = pool.Init()
+	if err != nil {
+		log.Error("initialize goroutine pool err|%s", err)
+		return err
+	}
+
+	client.Init()
+	server.Init()
+	api.Init()
 
 	log.System("successfully initialize the service")
 	return nil
@@ -79,9 +82,6 @@ func initialize() error {
 func finalize() {
 	log.Info("exit the process!")
 	server.Close()
-	if err := mysql.Close(); err != nil {
-		log.System("close mysql error|%s", err)
-	}
-	task.NewScheduledTask().Stop()
+	task.NewOnce().Stop()
 	log.Close()
 }

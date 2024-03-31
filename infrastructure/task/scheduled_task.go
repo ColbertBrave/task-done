@@ -16,7 +16,7 @@ type ScheduledTask struct {
 
 var once sync.Once
 
-func NewScheduledTask() *ScheduledTask {
+func NewOnce() *ScheduledTask {
 	once.Do(func() {
 		task = &ScheduledTask{
 			c: cron.New(),

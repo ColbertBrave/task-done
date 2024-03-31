@@ -2,6 +2,7 @@ package config
 
 type AppConfig struct {
 	MySQL    MySQLConfig       `yaml:"mysql"`
+	SQLite   SQLite            `yaml:"sqlite"`
 	Log      LogConfig         `yaml:"log"`
 	Server   ServerConfig      `yaml:"server"`
 	TaskTime ScheduledTaskTime `yaml:"time"`
@@ -16,6 +17,10 @@ type MySQLConfig struct {
 	UserName string `yaml:"user_name"`
 	Password string `yaml:"password"`
 	Database string `yaml:"database"`
+}
+
+type SQLite struct {
+	Path string `yaml:"path"`
 }
 
 type RedisConfig struct {
